@@ -125,6 +125,7 @@ SELECT * FROM ouro_netflix_filmes;
     JOIN ouro_netflix_relatorio_ano_lancamento ON ouro_netflix_relatorio_ano_lancamento.ano_lancamento = prata_netflix.release_year
 ORDER BY ano_lancamento DESC, descricao_tipo, nome_pais_origem, qtd_titulos DESC;
 
+-- Tabela criada --
 CREATE TABLE ouro_netflix_relatorio_titulos AS
   SELECT prata_netflix.release_year ano_lancamento,
 	     prata_netflix.type descricao_tipo,
