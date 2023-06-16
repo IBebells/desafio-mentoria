@@ -16,7 +16,7 @@ CREATE TABLE bronze_netflix(
 SELECT * FROM bronze_netflix;
 
 COPY bronze_netflix(show_id,type,title,director,desc_cast,country,date_added,release_year,rating,duration,listed_in,description)
-FROM '/home/silas/Documentos/Desenvolve - Isabel/Challenge_01/netflix_export.csv'
+FROM '/home/silas/Documentos/Desenvolve_Isabel/Challenge_01/netflix_export.csv'
 DELIMITER ';'
 ENCODING 'UTF8'
 CSV HEADER;
@@ -76,6 +76,7 @@ USING release_year::INTEGER;
 -----------------------------------------------------------------
 --Desafio 2--
 
+--Criando Tabela ouro_netflix_relatorio_ano_lancamento --
 CREATE TABLE ouro_netflix_relatorio_ano_lancamento AS
    SELECT release_year AS ano_lancamento, COUNT(*) AS qtd_titulos
      FROM prata_netflix
@@ -90,6 +91,7 @@ CREATE TABLE ouro_netflix_seriados AS
 
 ---------------------------------------------------------------------------
 
+-- criando tabela ouro_netflix_seriados --
 SELECT * FROM ouro_netflix_seriados;
 
 CREATE TABLE ouro_netflix_filmes AS
@@ -98,7 +100,8 @@ CREATE TABLE ouro_netflix_filmes AS
 
 SELECT * FROM ouro_netflix_filmes;
 
--------------------------------------------------------------
+--------------------------------------------------------------------------
+--teste--
    SELECT type descricao_tipo,
    		  country nome_pais_origem,
 		  rating categoria_classificacao_indicativa,
@@ -107,9 +110,12 @@ SELECT * FROM ouro_netflix_filmes;
  GROUP BY release_year
  ORDER BY ano_lancamento DESC, descricao_tipo, nome_pais_origem, qtd_titulos DESC;
 
---------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 
-CREATE TABLE ouro_netflix_relatorio_titulos AS
+ -- criando tabela ouro_netflix_relatorio_titulos --
+ 
+ --teste--
+
   SELECT ouro_netflix_relatorio_ano_lancamento.ano_lancamento,
 	     prata_netflix.type descricao_tipo,
 	     prata_netflix.country nome_pais_origem,
@@ -119,9 +125,7 @@ CREATE TABLE ouro_netflix_relatorio_titulos AS
     JOIN ouro_netflix_relatorio_ano_lancamento ON ouro_netflix_relatorio_ano_lancamento.ano_lancamento = prata_netflix.release_year
 ORDER BY ano_lancamento DESC, descricao_tipo, nome_pais_origem, qtd_titulos DESC;
 
-SELECT * FROM ouro_netflix_relatorio_titulos;
-
-
+CREATE TABLE ouro_netflix_relatorio_titulos AS
   SELECT prata_netflix.release_year ano_lancamento,
 	     prata_netflix.type descricao_tipo,
 	     prata_netflix.country nome_pais_origem,
@@ -131,6 +135,9 @@ SELECT * FROM ouro_netflix_relatorio_titulos;
 GROUP BY release_year, type, country, rating
 ORDER BY ano_lancamento DESC, descricao_tipo, nome_pais_origem, qtd_titulos DESC;
 
+SELECT * FROM ouro_netflix_relatorio_titulos;
+
+--teste--
 SELECT * FROM prata_netflix
 WHERE release_year = 2021
 AND type = 'Movie'
